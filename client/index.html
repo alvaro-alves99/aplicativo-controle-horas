@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Aplicativo Controle Horas</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="CSS/master.css">
+</head>
+<body>
+	<div class="mcontainer">
+
+		<aside class="title__mcontainer">
+			<h3>Feed</h3>
+		</aside>
+
+		<section class="feed__mcontainer">
+
+			<div class="task-single">
+
+				<div class="perfil-imagem">
+					<img src="imagens/profile-1.jpeg">
+				</div>
+			
+				<section class="conteudo-master">
+
+					<div class="texto">
+						<span><strong>{{executor}}</strong> começou uma nova tarefa:</span>
+					</div>
+
+					<div class="task-conteudo">
+						<div class="nome-task">
+							<strong class="num-job">{{numJob}}</strong>
+							<span class="nome-job">{{nome}}</span>
+						</div>
+
+						<div class="info-task">
+
+							<div class="analista-info">
+								<strong class="analista">Analista: </strong>
+								<span class="nome-analista">Andresa</span>
+							</div>
+
+							<div class="hora-info">
+								<div class="hora-entrada-container">
+									<strong class="hora-entrada">Hora Entrada: </strong>
+									<span class="hora-entrada-info">13:20</span><br>
+								</div>
+						
+								<div class="hora-saida-container">
+									<strong class="hora-saida">Hora Saída: </strong>
+
+									<div class="botao-saida-container">
+										<button class="hora-saida-button">Finalizar Tarefa</button>
+										<span>13:20</span>
+										<span>Executando</span>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+
+		</section>
+
+		<div class="botaoadiciona__mcontainer">
+			<button> Adicionar Tarefa +</button>
+		</div>
+
+		<nav class="menu__mcontainer">
+			<ul class="lista-ul__menu">
+				<li class="item-menu__lista-ul">
+					<a href="#">
+						<img src="imagens/browser.png">
+						<span>Feed</span>
+					</a>
+				</li>
+
+				<li class="item-menu__lista-ul">
+					<a href="#">
+						<img src="imagens/browser.png">
+						<span>Exportar</span>
+					</a>
+				</li>
+
+				<li class="item-menu__lista-ul">
+					<a href="#">
+						<img src="imagens/browser.png">
+						<span>Perfil</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+	</div>
+
+	<script src="App/Controller/Controller.js"></script>
+	<script src="App/Model/ModelTarefas.js"></script>
+	<script src="App/View/View.js"></script>
+	<script>
+		const Controller = new ControllerApp();
+		Controller.carregaTarefas();
+	</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+body{
+	margin:0;
+	padding:0;
+	font-family:sans-serif;
+}
+
+.mcontainer{
+	max-width: 450px;
+	margin:0 auto;
+}
+
+.lista-ul__menu{
+	list-style-type: none;
+	padding:0;
+	margin:0;
+	display:flex;
+	justify-content:center;
+}
+
+.item-menu__lista-ul{
+	display:inline-block;
+	width:60px;
+}
+
+.item-menu__lista-ul img{
+	width:40px;
+}
+
+.item-menu__lista-ul a{
+	display:inline-block;
+	text-decoration:none;
+	color:black;
+	text-align:center;
+}
+
+.item-menu__lista-ul:not(:last-child){
+	margin-right:45px;
+}
+
+.menu__mcontainer{
+	border-top:1px solid black;
+	background-color: white;
+	padding-top:10px;
+	position:fixed;
+	bottom:0;
+	width:100%;
+}
+
+.title__mcontainer{
+	position:fixed;
+	width: 100%;
+	background-color:#ccc;
+	border-bottom:1px solid black;
+}
+
+.title__mcontainer h3{
+	text-align:center;
+}
+
+.feed__mcontainer{
+	padding-top:75px;
+	padding-bottom:45px;
+	padding-left: 25px;
+}
+
+.perfil-imagem img{
+	width:100%;
+	border-radius: 100%;
+}
+
+.conteudo-master{
+	margin-top:10px;
+}
+
+.perfil-imagem{
+	margin-right: 12px;
+	width:13%;
+	display:inline-block;
+}
+
+.status-filtro-inner{
+	height:100%;
+}
+
+.task__feed{
+	width:100%;
+}
+
+.task-conteudo{
+	box-sizing:border-box;
+	border:1px solid black;
+	display:inline-block;
+	width:100%;
+	max-width:203px;
+}
+
+.texto{
+	margin-bottom:10px;
+}
+
+.info-task{
+	padding: 23px 5px 10px 24px;
+}
+
+.info-task .analista-info{
+	margin-bottom:20px;
+}
+
+.task-conteudo .nome-task{
+	padding: 10px 0px 8px 23px;
+    border-bottom: 1px solid black;
+}
+
+.task-single{
+	margin-bottom: 40px;
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+	margin-bottom:40px;
+}
+
+.status-filtro-inner .title{
+	font-size:10px;
+	display:block;
+}
+
+.aside-adiciona{
+	position: fixed;
+    bottom: 47px;
+    width: 100%;
+}
+
+.aside-adiciona button{
+	background-color:black;
+	color:white;
+}
+
+.status-item, .status-periodo, .botao-filtrar{
+	display:inline-block;
+}
+
+.hora-saida-container{
+	margin-top:10px;
+}
+
+.botao-saida-container{
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+
+.hora-saida-button{
+	background-color:black;
+	color:white;
+	border:none;
+	padding: 9px 16px;
+	border-radius:10px;
+}
+
+.botaoadiciona__mcontainer{
+	display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%);
+    background-color:white;
+    padding-bottom: 15px;
+    padding-top: 10px;
+}
+
+.botaoadiciona__mcontainer button{
+	background-color: black;
+    border: none;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+}

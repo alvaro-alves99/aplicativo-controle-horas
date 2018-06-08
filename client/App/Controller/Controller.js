@@ -1,16 +1,11 @@
 class ControllerApp{
 
 	constructor(){
-		this.model = new Proxy(new ModelTarefas(), {
-			get: function(target, prop, receiver){
-				console.log(`Acessando Prop: ${prop}`);
-
-				return Reflect.get()
-			}
-		});
-
+		let self = this;
 		this.view = new View();
 		this.feedContainer = document.querySelector('.feed__mcontainer');
+		this.logado = 'Calebe';
+		this.model = ProxyFactory.Model(self, this.logado);
 	}
 
 	carregaTarefas(){
@@ -22,8 +17,6 @@ class ControllerApp{
 				if(request.status == 200){
 					console.log(this.model);
 					this.model.adiciona(JSON.parse(request.responseText));
-
-					console.log(this.model.tarefas);
 				}else{
 					console.log(request.statusText);
 				}
@@ -33,5 +26,33 @@ class ControllerApp{
 		request.open('GET', 'http://localhost:3000/tarefas');
 		request.send();
 
+	}
+
+	ModalAdicionaToggle(dismiss){
+
+		let containerModal = document.querySelector('.adicionar__mcontainer');
+
+		if(dismiss || containerModal.innerHTML){
+			containerModal.innerHTML = '';
+		}else{
+			this.view.modalAdiciona(containerModal, this.logado);
+		}
+
+	}
+
+	finalizarTarefa(id){
+
+		let request = new XMLHttpRequest();
+
+		request.onreadystatechange = () =>{
+			if(request.readyState == 4){
+				if(request.status == 200){
+
+				}
+			}
+		}
+
+		request.open('PUT', 'http://localhost:3000/tarefas');
+		request.send();
 	}
 }

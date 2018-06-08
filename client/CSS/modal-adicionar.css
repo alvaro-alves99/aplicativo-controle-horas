@@ -1,0 +1,56 @@
+.adicionar__mcontainer{
+	position:fixed;
+    top: 46%;
+    left: 49%;
+	opacity: 0;
+	transition:.7s;
+	background-color:white;
+	transform: translate(-46%, -53%);
+}
+
+.adicionar__mcontainer .form-item:not(:last-child){
+	margin-bottom:15px;
+}
+
+.form__adicionar{
+	padding: 11px 28px 21px 27px;
+    border: 1px solid black;
+    position:relative;
+    opacity: 0;
+    transition:.7s;
+}
+
+.close-modal{
+    position: absolute;
+    font-weight: bold;
+    top: 4%;
+    left: 86%;
+    font-size: 20px;
+}
+
+.form-item input{
+	height: 30px;
+    font-size: 22px;
+    width: 200px;
+}
+
+#analista{
+	width:100%;
+	padding: 7px 10px;
+    font-size: 15px;
+}
+
+.submit-form{
+    background-color: #666;
+    color: white;
+    border: 0;
+    border-radius: 22px;
+    font-size: 18px !important;
+    height: 44px !important;
+}
+
+.horario-form select{
+	width:48%;
+    padding: 7px 10px;
+    font-size: 15px;
+}

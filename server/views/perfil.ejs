@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Aplicativo Controle Horas</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/master.css">
+	<link rel="stylesheet" href="/css/modal-adicionar.css">
+	<link rel="stylesheet" href="/css/perfil.css">
+</head>
+<body>
+	<div class="mcontainer">
+
+		<aside class="title__mcontainer">
+			<h3>Perfil</h3>
+		</aside>
+
+		<section class="perfil__mcontainer">
+			<div class="imagem__perfil">
+				<img src="assets/profile-1.jpeg" alt="">
+			</div>
+			<div class="info__perfil">
+				<h2>Nome Perfil</h2>
+			</div>
+		</section>
+
+		<!-- <div class="botaoadiciona__mcontainer">
+			<button style="text-transform:uppercase;" onclick="Controller.ModalAdicionaToggle()"> Adicionar Tarefa +</button>
+		</div> -->
+
+		<section class="adicionar__mcontainer"></section>
+
+		<nav class="menu__mcontainer">
+			<ul class="lista-ul__menu">
+				<li class="item-menu__lista-ul">
+					<a href="/home">
+						<img src="/assets/browser.png">
+						<span>Feed</span>
+					</a>
+				</li>
+
+				<li class="item-menu__lista-ul">
+					<a href="#">
+						<img src="/assets/browser.png">
+						<span>Exportar</span>
+					</a>
+				</li>
+
+				<li class="item-menu__lista-ul">
+					<a href="#">
+						<img src="/assets/browser.png">
+						<span>Perfil</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+	</div>
+
+	<script src="/js/Factory/ProxyFactory.js"></script>
+	<script src="/js/Controller/Controller.js"></script>
+	<script src="/js/Model/ModelTarefas.js"></script>
+	<script src="/js/View/View.js"></script>
+	<script>
+		const Controller = new ControllerApp();
+	</script>
+</body>
+</html>

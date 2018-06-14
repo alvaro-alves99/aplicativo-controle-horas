@@ -2,8 +2,6 @@ var http = require('http');
 
 var app = require('./config/express')();
 
-console.log(app);
-
 var bodyParser = require("body-parser");
 
 var consign = require('consign');

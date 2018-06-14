@@ -15,8 +15,6 @@ module.exports = function(app){
 
 		var dateString = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${req.body.horaEntrada}:00`;
 
-		console.log(dateString);
-
 		var connection = app.infra.connectionFactory();
 
 		// var query = 'INSERT INTO tarefas (numJob, nome, analista, executor) VALUES (' + req.body.numJob + ', ' + '\"' + req.body.nome + '\"' + ', ' + '\"' + req.body.analista + '\"' + ', ' + '\"' + req.body.executor + '\"' + ')';

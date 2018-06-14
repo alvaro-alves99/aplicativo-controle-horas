@@ -6,22 +6,26 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="CSS/master.css">
 	<link rel="stylesheet" href="CSS/modal-adicionar.css">
+	<link rel="stylesheet" href="CSS/perfil.css">
 </head>
 <body>
 	<div class="mcontainer">
 
 		<aside class="title__mcontainer">
-			<h3 class="filtro__title">Feed</h3>
-			<button onclick="Controller.modalFiltrar()">Filtrar</button>
+			<h3 class="filtro__title">Minhas tarefas</h3>
+			<button onclick="Controller.modalFiltrar('perfil')">Filtrar</button>
 		</aside>
 
+
+		<!-- <div class="botaoadiciona__mcontainer">
+			<button style="text-transform:uppercase;" onclick="Controller.ModalAdicionaToggle()"> Adicionar Tarefa +</button>
+		</div> -->
 		<section class="feed__mcontainer"></section>
+		<section class="adicionar__mcontainer alert__mcontainer" style="display:block !important;opacity:1;"></section>
 
 		<div class="botaoadiciona__mcontainer">
-			<button style="text-transform:uppercase;" onclick="Controller.ModalAdicionaToggle()"> Adicionar Tarefa +</button>
+			<h3 class="horas__botaoadiciona">Total: <span class="horas-valor">6</span>h</h3>
 		</div>
-
-		<section class="adicionar__mcontainer alert__mcontainer" style="display:block !important;opacity:1;"></section>
 
 		<nav class="menu__mcontainer">
 			<ul class="lista-ul__menu">
@@ -57,8 +61,9 @@
 	<script src="App/Factory/AjaxFactory.js"></script>
 	<script src="App/Helper/DateHelper.js"></script>
 	<script>
+		var $ = document.querySelector.bind(document);
 		const Controller = new ControllerApp();
-		Controller.carregaTarefas();
+		Controller.carregaTarefas({executor: Controller.logado});
 	</script>
 </body>
 </html>

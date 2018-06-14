@@ -14,4 +14,22 @@ class ModelTarefas{
 		}
 		
 	}
+
+	_esvazia(){
+		this.tarefas = [];
+	}
+
+	_alteraTarefa(id, campo, valor){
+		var tarefa = this.tarefas.filter(function(item){
+			return item.id == id;
+		});
+
+		tarefa[0][campo] = valor;
+
+		console.log(tarefa[0]);
+	}
+
+	_adicionaTarefa(tarefa){
+		this.tarefas.push(tarefa);
+	}
 }

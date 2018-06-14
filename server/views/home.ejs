@@ -4,15 +4,14 @@
 	<meta charset="UTF-8">
 	<title>Aplicativo Controle Horas</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="CSS/master.css">
-	<link rel="stylesheet" href="CSS/modal-adicionar.css">
+	<link rel="stylesheet" href="/css/master.css">
+	<link rel="stylesheet" href="/css/modal-adicionar.css">
 </head>
 <body>
 	<div class="mcontainer">
 
 		<aside class="title__mcontainer">
-			<h3 class="filtro__title">Feed</h3>
-			<button onclick="Controller.modalFiltrar()">Filtrar</button>
+			<h3>Feed</h3>
 		</aside>
 
 		<section class="feed__mcontainer"></section>
@@ -21,27 +20,27 @@
 			<button style="text-transform:uppercase;" onclick="Controller.ModalAdicionaToggle()"> Adicionar Tarefa +</button>
 		</div>
 
-		<section class="adicionar__mcontainer alert__mcontainer" style="display:block !important;opacity:1;"></section>
+		<section class="adicionar__mcontainer"></section>
 
 		<nav class="menu__mcontainer">
 			<ul class="lista-ul__menu">
 				<li class="item-menu__lista-ul">
-					<a href="index.html">
-						<img src="imagens/browser.png">
+					<a href="/home">
+						<img src="/assets/browser.png">
 						<span>Feed</span>
 					</a>
 				</li>
 
 				<li class="item-menu__lista-ul">
 					<a href="#">
-						<img src="imagens/browser.png">
+						<img src="/assets/browser.png">
 						<span>Exportar</span>
 					</a>
 				</li>
 
 				<li class="item-menu__lista-ul">
-					<a href="perfil.html">
-						<img src="imagens/browser.png">
+					<a href="/perfil">
+						<img src="/assets/browser.png">
 						<span>Perfil</span>
 					</a>
 				</li>
@@ -50,12 +49,10 @@
 
 	</div>
 
-	<script src="App/Factory/ProxyFactory.js"></script>
-	<script src="App/Controller/Controller.js"></script>
-	<script src="App/Model/ModelTarefas.js"></script>
-	<script src="App/View/View.js"></script>
-	<script src="App/Factory/AjaxFactory.js"></script>
-	<script src="App/Helper/DateHelper.js"></script>
+	<script src="/js/Factory/ProxyFactory.js"></script>
+	<script src="/js/Controller/Controller.js"></script>
+	<script src="/js/Model/ModelTarefas.js"></script>
+	<script src="/js/View/View.js"></script>
 	<script>
 		const Controller = new ControllerApp();
 		Controller.carregaTarefas();

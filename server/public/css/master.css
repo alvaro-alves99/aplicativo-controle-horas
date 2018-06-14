@@ -48,23 +48,13 @@ body{
 
 .title__mcontainer{
 	position:fixed;
-	display: flex;
-	justify-content: space-around;
-	align-items:center;
 	width: 100%;
-	background-color: #ddd;
+	background-color:#ccc;
+	border-bottom:1px solid black;
 }
 
 .title__mcontainer h3{
 	text-align:center;
-	display: inline-block;
-	margin: 15px 0px;
-}
-
-.title__mcontainer button{
-	background-color: white;
-    border: 1px solid black;
-    padding: 6px 14px;
 }
 
 .feed__mcontainer{
@@ -164,7 +154,6 @@ body{
 .botao-saida-container{
     margin-top: 5px;
     margin-bottom: 5px;
-
 }
 
 .hora-saida-button{
@@ -195,8 +184,4 @@ body{
     color: white;
     padding: 12px 18px;
     border-radius: 10px;
-}
-
-.search-icon__title{
-	max-width:20px;
 }

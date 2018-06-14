@@ -18,8 +18,9 @@ module.exports = function(app){
 							return item;
 						}
 					});
-				
-					res.end(JSON.stringify(periodoFiltro));	
+
+
+					res.end(JSON.stringify(periodoFiltro));
 				}
 
 				res.end(JSON.stringify(results));

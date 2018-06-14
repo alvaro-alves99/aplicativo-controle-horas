@@ -1,0 +1,20 @@
+.perfil__mcontainer{
+	padding-top:75px;
+	padding-bottom: 115px;
+	padding-left: 25px;
+    padding-right: 10px;
+}
+
+.info__perfil{
+	text-align:center;
+}
+
+.imagem__perfil{
+	text-align: center;
+	margin-top: 20px;
+}
+
+.imagem__perfil img{
+	border-radius:100px;
+	max-width: 190px;
+}

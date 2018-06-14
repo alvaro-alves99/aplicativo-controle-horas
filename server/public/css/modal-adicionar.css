@@ -23,16 +23,15 @@
 .close-modal{
     position: absolute;
     font-weight: bold;
-    top: 5%;
+    top: 4%;
     left: 86%;
     font-size: 20px;
 }
 
 .form-item input{
 	height: 30px;
-    font-size: 20px;
+    font-size: 22px;
     width: 200px;
-    padding-left: 7px;
 }
 
 #analista{
@@ -54,39 +53,4 @@
 	width:48%;
     padding: 7px 10px;
     font-size: 15px;
-}
-
-.modal__adicionar{
-    width: 180px;
-    padding: 11px 28px 21px 27px;
-    border: 1px solid black;
-    position:relative;
-    border:1px solid black;
-
-}
-
-.btn-alert-modal{
-    width: 180px;
-}
-
-.modal__adicionar h3{
-    font-size: 31px;
-    margin-top: 20px;
-    margin-bottom: 0;
-}
-
-.modal__adicionar h4{
-    font-weight: 100;
-    margin-top: 5px;
-    font-size: 16px;
-    margin-bottom: 26px;
-}
-
-#periodo-filtro, #executor-filtro{
-    width:100%;
-}
-
-.form-item label{
-    margin-bottom:4px;
-    display: inline-block;
 }

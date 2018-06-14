@@ -7,8 +7,6 @@ class View{
 	atualiza(lista, container, logado){
 		let bigString = '';
 
-		console.log(typeof Array.from(lista));
-
 		lista.forEach(function(item){
 			bigString += `<div class="task-single">
 
@@ -47,12 +45,20 @@ class View{
 									<strong class="hora-saida">Hora Saída: </strong>
 
 									<div class="botao-saida-container">
-											${logado == item.executor && !item.horaSaida ? `<button onclick="Controller.finalizarTarefa(${item.id})" class="hora-saida-button">Finalizar Tarefa</button>` : ''}
+											${logado == item.executor && !item.horaSaida ? `<button onclick="Controller.ModalFinalizarTarefa(${item.id})" class="hora-saida-button">Finalizar Tarefa</button>` : ''}
 											${logado != item.executor && !item.horaSaida ? '<span>Executando</span>' : ''}
-											${item.horaSaida ? '<span>13:20</span>' : ''}
+											${item.horaSaida ? `<span>${item.horaSaida}</span>` : ''}
 									</div>
 									
 								</div>
+
+								<div class="hora-entrada-container">
+									<strong class="hora-entrada">Tempo: </strong><br>
+									<span class="hora-entrada-info">${typeof item.tempo.hour == undefined ? item.tempo.substr(0, 5) : 
+										`<span class="container--change"><span class="horas--change">${item.tempo.hour}</span>:<span class="minutos--change">${item.tempo.min}</span></span>
+										`}</span><br>
+								</div>
+
 							</div>
 						</div>
 					</div>
@@ -66,6 +72,9 @@ class View{
 	}
 
 	modalAdiciona(container, logado){
+		var data = new Date();
+		var string = data.getMinutes().toString();
+		if(string.length == 1) string = '0' + string;
 		let conteudoModal = `<div class="form__adicionar" style="opacity:1;">
 				<span class="close-modal" onclick="Controller.ModalAdicionaToggle('dismiss')">X</span>
 				<h3>Adicionar Tarefa</h3>
@@ -83,13 +92,48 @@ class View{
 					<div class="form-item horario-form">
 						<label for="hora-entrada-tarefa">Horário Entrada</label><br>
 						<select name="horaEntrada" id="hora-entrada">
-							<option value="" disabled>Hora</option>
-							<option value="14:32" selected>Hora</option>
+							<option value="${data.getHours()}" selected>${data.getHours()}</option>
+							<option value="1">01</option>
+							<option value="2">02</option>
+							<option value="3">03</option>
+							<option value="4">04</option>
+							<option value="5">05</option>
+							<option value="6">06</option>
+							<option value="7">07</option>
+							<option value="8">08</option>
+							<option value="9">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							<option value="13">13</option>
+							<option value="14">14</option>
+							<option value="15">15</option>
+							<option value="16">16</option>
+							<option value="17">17</option>
+							<option value="18">18</option>
+							<option value="19">19</option>
+							<option value="20">20</option>
+							<option value="21">21</option>
+							<option value="22">22</option>
+							<option value="23">23</option>
+							<option value="24">24</option>
 						</select>
 
-						<select>
+						<select name="minutosEntrada">
 							<option value="" disabled>Minutos</option>
-							<option value="14:32" selected>Minutos</option>
+							<option value="${data.getMinutes()}" selected>${string}</option>
+							<option value="00">00</option>
+							<option value="05">05</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+							<option value="25">25</option>
+							<option value="30">30</option>
+							<option value="35">35</option>
+							<option value="40">40</option>
+							<option value="45">45</option>
+							<option value="50">50</option>
+							<option value="55">55</option>
 						</select>
 					</div>
 
@@ -98,21 +142,148 @@ class View{
 						<select id="analista" name="analista">
 							<option value="" disabled selected>Selectione o analista</option>
 							<option value="Kim">Kim</option>
-							<option value="Kim">Kim</option>
-							<option value="Kim">Kim</option>
-							<option value="Kim">Kim</option>
+							<option value="Andresa">Andresa</option>
+							<option value="Karine">Karine</option>
+							<option value="Victor">Victor</option>
 						</select>
 					</div>
 
-					<input style="display:none;" type="text" name="executor" value="${logado}">
-
 					<div class="form-item">
-						<input class="submit-form" type="submit" value="Cadastrar">
+						<input class="submit-form" type="submit" value="Cadastrar" onclick="Controller.adicionarTarefa(event)">
 					</div>
 				</form>
 			</div>`;
 
 			container.innerHTML = conteudoModal;
 			container.style.opacity="1";
+	}
+
+
+
+	enableFinalizaTarefa(container, id){
+		var data = new Date();
+		var string = data.getMinutes().toString();
+		if(string.length == 1) string = '0' + string;
+		let conteudo = `<div class="form__adicionar" style="opacity:1;">
+				<span class="close-modal" onclick="Controller.ModalAdicionaToggle('dismiss')">X</span>
+				<h3>Finalizar Tarefa</h3>
+				<form action="http://localhost:3000/tarefas">
+					<div class="form-item horario-form">
+						<label for="hora-entrada">Horário Saída</label><br>
+						<select name="horaEntrada" id="hora-entrada">
+							<option value="${data.getHours()}" selected>${data.getHours()}</option>
+							<option value="1">01</option>
+							<option value="2">02</option>
+							<option value="3">03</option>
+							<option value="4">04</option>
+							<option value="5">05</option>
+							<option value="6">06</option>
+							<option value="7">07</option>
+							<option value="8">08</option>
+							<option value="9">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							<option value="13">13</option>
+							<option value="14">14</option>
+							<option value="15">15</option>
+							<option value="16">16</option>
+							<option value="17">17</option>
+							<option value="18">18</option>
+							<option value="19">19</option>
+							<option value="20">20</option>
+							<option value="21">21</option>
+							<option value="22">22</option>
+							<option value="23">23</option>
+							<option value="24">24</option>
+						</select>
+
+						<select name="minutosEntrada">
+							<option value="" disabled>Minutos</option>
+							<option value="${data.getMinutes()}" selected>${string}</option>
+							<option value="00">00</option>
+							<option value="05">05</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+							<option value="25">25</option>
+							<option value="30">30</option>
+							<option value="35">35</option>
+							<option value="40">40</option>
+							<option value="45">45</option>
+							<option value="50">50</option>
+							<option value="55">55</option>
+						</select>
+					</div>
+
+					<div class="form-item">
+						<input class="submit-form" type="submit" value="Finalizar" onclick="Controller.finalizarTarefa(event, ${id}, this)">
+					</div>
+				</form>
+			</div>`;
+
+			container.innerHTML = conteudo;
+			container.style.opacity="1";
+	}
+
+	alert(titulo, subtitulo){
+		let conteudo = `<div class="modal__adicionar" style="opacity:1;">
+				<span class="close-modal" onclick="Controller.ModalAdicionaToggle('dismiss')">X</span>
+				<h3>${titulo}</h3>
+				<h4>${subtitulo}</h4>
+				<input class="submit-form btn-alert-modal" type="submit" value="Finalizar" onclick="Controller.ModalAdicionaToggle('dismiss');">
+			</div>`;
+
+
+		let container = document.querySelector('.alert__mcontainer');
+		container.innerHTML = conteudo;
+		container.style.opacity="1";
+	}
+
+	enableModalFiltrar(param=false, logado){
+		let conteudo = `<div class="form__adicionar" style="opacity:1;">
+				<span class="close-modal" onclick="Controller.ModalAdicionaToggle('dismiss')">X</span>
+				<h3>Filtrar Tarefas</h3>
+				<form action="http://localhost:3000/tarefas">
+					<div class="form-item horario-form">
+						<label for="hora-entrada">Período:</label><br>
+						<select id="periodo-filtro" name="periodo">
+						<option value="" selected>Geral</option>
+						<option value="1">Janeiro</option>
+						<option value="2">Fevereiro</option>
+						<option value="3">Março</option>
+						<option value="4">Abril</option>
+						<option value="5">Maio</option>
+						<option value="6">Junho</option>
+						<option value="7">Julho</option>
+						<option value="8">Agosto</option>
+						<option value="9">Setembro</option>
+						<option value="10">Outubro</option>
+						<option value="11">Novembro</option>
+						<option value="12">Dezembro</option>
+					</select>
+					</div>
+
+					<div class="form-item horario-form" ${param ? 'style="display:none;"' : ''}>
+						<label for="hora-entrada">Executor:</label><br>
+						<select id="executor-filtro" name="executor">
+						${param ? `<option value="${logado}" selected></option>` : ''}
+						<option value="" ${!param ? 'selected' : ''}>Geral</option>
+						<option value="Allan">Allan</option>
+						<option value="Calebe">Calebe</option>
+						<option value="Álvaro">Álvaro</option>
+						<option value="Vitor">Vitor</option>
+					</select>
+					</div>
+
+					<div class="form-item">
+						<input class="submit-form" type="submit" value="Filtrar" onclick="Controller.filtrarTarefas(event ${param ? ",'perfil'" : ''})">
+					</div>
+				</form>
+			</div>`;
+
+		let container = document.querySelector('.alert__mcontainer');
+		container.innerHTML = conteudo;
+		container.style.opacity="1";
 	}
 }

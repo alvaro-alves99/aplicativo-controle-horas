@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Aplicativo Controle Horas</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="CSS/master.css">
+	<link rel="stylesheet" href="CSS/modal-adicionar.css">
+	<link rel="stylesheet" href="CSS/perfil.css">
+</head>
+<body>
+	<div class="mcontainer">
+
+		<aside class="title__mcontainer">
+			<h3>Perfil</h3>
+		</aside>
+
+		<section class="perfil__mcontainer">
+			<div class="imagem__perfil">
+				<img src="imagens/profile-1.jpeg" alt="">
+			</div>
+			<div class="info__perfil">
+				<h2 class="nome__info">Nome Perfil</h2>
+
+				<div class="horas__info">
+					<h3>Horas</h3>
+				</div>
+
+				<div class="select__horas">
+					<label for="periodo-hora">Período:</label>
+					<select name="periodo-hora" id="periodo-hora" onchange="Controller.filtraPorPeriodo(event)">
+						<option value="" selected>Geral</option>
+						<option value="1">Janeiro</option>
+						<option value="2">Fevereiro</option>
+						<option value="3">Março</option>
+						<option value="4">Abril</option>
+						<option value="5">Maio</option>
+						<option value="6">Junho</option>
+						<option value="7">Julho</option>
+						<option value="8">Agosto</option>
+						<option value="9">Setembro</option>
+						<option value="10">Outubro</option>
+						<option value="11">Novembro</option>
+						<option value="12">Dezembro</option>
+					</select>
+				</div>
+				
+				<span class="hora__info"></span>
+				<span class="mensagem-hora">Você não estourou suas horas</span>
+
+				<div class="botaotarefas__info">
+					<a href="minhas-tarefas.html">minhas tarefas</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- <div class="botaoadiciona__mcontainer">
+			<button style="text-transform:uppercase;" onclick="Controller.ModalAdicionaToggle()"> Adicionar Tarefa +</button>
+		</div> -->
+
+		<section class="adicionar__mcontainer"></section>
+
+		<nav class="menu__mcontainer">
+			<ul class="lista-ul__menu">
+				<li class="item-menu__lista-ul">
+					<a href="index.html">
+						<img src="imagens/browser.png">
+						<span>Feed</span>
+					</a>
+				</li>
+
+				<li class="item-menu__lista-ul">
+					<a href="#">
+						<img src="imagens/browser.png">
+						<span>Exportar</span>
+					</a>
+				</li>
+
+				<li class="item-menu__lista-ul">
+					<a href="#">
+						<img src="imagens/browser.png">
+						<span>Perfil</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+	</div>
+
+	<script src="App/Factory/ProxyFactory.js"></script>
+	<script src="App/Controller/Controller.js"></script>
+	<script src="App/Model/ModelTarefas.js"></script>
+	<script src="App/View/View.js"></script>
+	<script src="App/Factory/AjaxFactory.js"></script>
+	<script src="App/Helper/DateHelper.js"></script>
+	<script>
+		const Controller = new ControllerApp();
+		Controller.carregaInfoPerfil();
+
+		let teste = document.querySelector('#periodo-hora');
+		console.log(teste);
+	</script>
+</body>
+</html>

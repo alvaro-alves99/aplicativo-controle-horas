@@ -5,7 +5,7 @@ class ControllerApp{
 		let self = this;
 		this.view = new View();
 		this.feedContainer = document.querySelector('.feed__mcontainer');
-		this.logado = 'Allan';
+		this.logado = 'Calebe';
 		this.model = ProxyFactory.Model(self, this.logado);
 	}
 
@@ -14,23 +14,36 @@ class ControllerApp{
 		if(!filtros){
 			Ajax.get('http://localhost:3000/tarefas')
 			.then( (data) => {
-				console.log(DateHelper.tempoAtual(data));
-				this.model.adiciona(DateHelper.tempoAtual(data));
+				let grupoTarefas = this.AgrupaPorData(DateHelper.tempoAtual(data));
+
+				this.model.adiciona(grupoTarefas);
 				DateHelper.incrementHour();
 
-				//FIM DA TELA DE CARREGAMENTO
+				//FIM DA TELA DE CARRGAMENTO
 			}).catch( (erro) => console.log(erro));
 		}else{
 
 			if(filtros.executor == undefined)filtros.executor = '';
 			if(filtros.periodo == undefined)filtros.periodo = '';
 
+
 			Ajax.get(`http://localhost:3000/tarefas?executor=${filtros.executor}&periodo=${filtros.periodo}`)
 			.then( (data) => {
 
 				if(data != false){
-					this.model._esvazia();
-					this.model.adiciona(DateHelper.tempoAtual(data));
+
+					console.log('DATA');
+					console.log(data);
+
+					let grupoTarefas = this.AgrupaPorData(DateHelper.tempoAtual(data));
+
+					console.log(grupoTarefas);
+
+					console.log('MODEL');
+					this.model.esvazia();
+					
+					this.model.adiciona(grupoTarefas);
+
 					document.querySelector('.filtro__title').textContent=`${filtros.executor == '' ? 'Geral' : filtros.executor} - ${filtros.periodo == '' ? 'Geral' : filtros.periodo}`;
 					this.ModalAdicionaToggle('dismiss');
 					DateHelper.incrementHour();
@@ -55,25 +68,30 @@ class ControllerApp{
 
 	}
 
-	ModalFinalizarTarefa(id){
+	ModalFinalizarTarefa(id, horaEntrada){
 		let containerModal = document.querySelector('.adicionar__mcontainer');
-		this.view.enableFinalizaTarefa(containerModal, id);
+		this.view.enableFinalizaTarefa(containerModal, id, horaEntrada);
 	}
 
 	finalizarTarefa(event, idTarefa, ele){
 		event.preventDefault();
 		let form = ele.parentNode.parentNode;
 
-		let stringData = `${form.horaEntrada.value}:${form.minutosEntrada.value}`;
+		console.log(form.horaEntrada.value);
+
+		let stringData = `${form.horaSaida.value}:${form.minutosSaida.value}`;
 
 		console.log(stringData);
-		Ajax.send('PUT', 'http://localhost:3000/tarefas', {id: idTarefa, horaSaida:stringData})
+		Ajax.send('PUT', 'http://localhost:3000/tarefas', {id: idTarefa, horaSaida:stringData, horaEntrada: form.horaEntrada.value })
 			.then( (dados) => {
 					this.model._alteraTarefa(idTarefa, 'horaSaida', stringData);
+					setTimeout(()=>{
+						this.carregaTarefas();
+					}, 600)
 					//TELA DE CARREGAMENTO
 					this.view.alert('Sucesso!', 'Sua tarefa foi finalizada');
 					
-			}).catch( (erro) => console.log(erro));
+			}).catch(erro => console.log(erro));
 	}
 
 	carregaInfoPerfil(){
@@ -117,11 +135,14 @@ class ControllerApp{
 		Ajax.send('POST', 'http://localhost:3000/tarefas', json)
 			.then(dados => {
 				// TAREFA ADICIONADA COM SUCESSO
-				this.model._adicionaTarefa(json);
+
+				console.log(DateHelper.tempoAtual(json));
+				this.model._adicionaTarefa(DateHelper.tempoAtual(json));
 				this.view.alert('Sucesso!', 'Sua tarefa foi adicionada');
+
 				setTimeout(() => {
 					this.carregaTarefas();
-				}, 1000);
+				}, 600);
 			});
 
 	}
@@ -147,10 +168,11 @@ class ControllerApp{
 
 			Ajax.get(`http://localhost:3000/horas-executor?executor=${this.logado}&periodo=${form.periodo.value}`)
 			.then( dados => {
-				console.log(dados==false)
+
+				console.log(dados);
 
 				if(dados.hora == 0 && dados.minutos == 0){
-					$('.horas__botaoadiciona').textContent = 'Não Foram encontrada tarefas nesse período';
+					this.view.alert('Erro', 'Não foram encontradas tarefas para esse período');
 				}else{
 					$('.horas-valor').textContent = dados.hora;
 				}
@@ -158,6 +180,33 @@ class ControllerApp{
 			});
 		}
 
+
+	}
+
+	AgrupaPorData(array){
+
+		console.log(array);
+
+		array.forEach(item => {
+			item.data = item.horaEntrada.split(' ')[0];
+		});
+
+		console.log(array);
+
+		let superDatas = [[]];
+
+		array.forEach(item => {
+			if(superDatas[superDatas.length - 1].length == 0){
+				superDatas[superDatas.length - 1].push(item);
+			}
+			if(superDatas[superDatas.length - 1][superDatas[superDatas.length - 1].length - 1].data == item.data){
+				superDatas[superDatas.length - 1].push(item);
+			}else{
+				superDatas.push([item]);
+			}
+		});
+
+		return superDatas;
 
 	}
 }

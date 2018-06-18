@@ -4,70 +4,214 @@ class View{
 		
 	}
 
-	atualiza(lista, container, logado){
+	atualiza(Grupolista, container, logado){
 		let bigString = '';
 
-		lista.forEach(function(item){
-			bigString += `<div class="task-single">
+		// console.log(Grupolista);
 
-				<div class="perfil-imagem">
-					${item.executor == 'Calebe' ? '<img src="imagens/profile-1.jpeg">' : ''}
-					${item.executor == 'Allan' ? '<img src="imagens/profile-2.jpeg">' : ''}
-					${item.executor == 'Álvaro' ? '<img src="imagens/profile-3.jpeg">' : ''}
-				</div>
-			
-				<section class="conteudo-master">
+		if(Grupolista.length == 0){
+			container.innerHTML = '';
+			return;
+		}
 
-					<div class="texto">
-						<span><strong>${item.executor}</strong> começou uma nova tarefa:</span>
-					</div>
+		console.log(Grupolista);
 
-					<div class="task-conteudo">
-						<div class="nome-task">
-							<strong class="num-job">${item.numJob}</strong>
-							<span class="nome-job">${item.nome}</span>
+		if(Array.isArray(Grupolista[0])){
+			console.log('é array');
+
+			Grupolista.forEach( lista => {
+
+				let containerTempo = document.createElement('div');
+				containerTempo.classList.add('grupo-periodo');
+
+				let titulo = document.createElement('h2');
+
+				titulo.textContent = `${DateHelper.queryDate(new Date(lista[0].horaEntrada))}`;
+
+				let containerFeed = document.createElement('div');
+				containerFeed.classList.add('grupo-periodo-inner');
+
+				containerTempo.appendChild(titulo);
+				containerTempo.appendChild(containerFeed);
+
+
+				lista.forEach(function(item){
+
+
+					if(typeof item.tempo == 'object'){
+						var hourParsed = item.tempo.hour.toString().length == 1 ? `0${item.tempo.hour}` : item.tempo.hour;
+						var minParsed = item.tempo.min.toString().length == 1 ? `0${item.tempo.min}` : item.tempo.min;
+					}
+
+					console.log(item.horaEntrada.split(' ')[1].substr(0, 5));
+
+
+					containerFeed.innerHTML += `<div class="task-single">
+
+						<div class="perfil-imagem">
+							${item.executor == 'Calebe' ? '<img src="imagens/profile-1.jpeg">' : ''}
+							${item.executor == 'Allan' ? '<img src="imagens/profile-2.jpeg">' : ''}
+							${item.executor == 'Álvaro' ? '<img src="imagens/profile-3.jpeg">' : ''}
 						</div>
+					
+						<section class="conteudo-master">
 
-						<div class="info-task">
-
-							<div class="analista-info">
-								<strong class="analista">Analista: </strong>
-								<span class="nome-analista">${item.analista}</span>
+							<div class="texto">
+								<span><strong>${item.executor}</strong> começou uma nova tarefa:</span>
 							</div>
 
-							<div class="hora-info">
-								<div class="hora-entrada-container">
-									<strong class="hora-entrada">Hora Entrada: </strong><br>
-									<span class="hora-entrada-info">${item.horaEntrada}</span><br>
+							<div class="task-conteudo">
+								<div class="nome-task">
+									<strong class="num-job">${item.numJob}</strong>
+									<span class="nome-job">${item.nome}</span>
 								</div>
-						
-								<div class="hora-saida-container">
-									<strong class="hora-saida">Hora Saída: </strong>
 
-									<div class="botao-saida-container">
-											${logado == item.executor && !item.horaSaida ? `<button onclick="Controller.ModalFinalizarTarefa(${item.id})" class="hora-saida-button">Finalizar Tarefa</button>` : ''}
-											${logado != item.executor && !item.horaSaida ? '<span>Executando</span>' : ''}
-											${item.horaSaida ? `<span>${item.horaSaida}</span>` : ''}
+								<div class="info-task">
+
+									<div class="analista-info">
+										<strong class="analista">Analista: </strong>
+										<span class="nome-analista">${item.analista}</span>
 									</div>
-									
-								</div>
 
-								<div class="hora-entrada-container">
-									<strong class="hora-entrada">Tempo: </strong><br>
-									<span class="hora-entrada-info">${typeof item.tempo.hour == undefined ? item.tempo.substr(0, 5) : 
-										`<span class="container--change"><span class="horas--change">${item.tempo.hour}</span>:<span class="minutos--change">${item.tempo.min}</span></span>
-										`}</span><br>
-								</div>
+									<div class="hora-info">
+										<div class="hora-entrada-container">
+											<strong class="hora-entrada">Hora Entrada: </strong><br>
+											<span class="hora-entrada-info">${item.horaEntrada.split(' ')[1].substr(0, 5)}</span><br>
+										</div>
+								
+										<div class="hora-saida-container">
+											<strong class="hora-saida">Hora Saída: </strong>
 
+											<div class="botao-saida-container">
+													${logado == item.executor && !item.horaSaida ? `<button onclick="Controller.ModalFinalizarTarefa(${item.id}, '${item.horaEntrada}')" class="hora-saida-button">Finalizar Tarefa</button>` : ''}
+													${logado != item.executor && !item.horaSaida ? '<span>Executando</span>' : ''}
+													${item.horaSaida ? `<span>${item.horaSaida.split(' ')[1].substr(0, 5)}</span>` : ''}
+											</div>
+											
+										</div>
+
+										<div class="hora-entrada-container">
+											<strong class="hora-entrada">Tempo: </strong><br>
+											<span class="hora-entrada-info">${typeof item.tempo == 'string' ? item.tempo.substr(0, 5) : 
+												`<span class="container--change"><span class="horas--change">${hourParsed}</span>:<span class="minutos--change">${minParsed}</span></span>
+												`}</span><br>
+										</div>
+
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-				</section>
-			</div>`;
+						</section>
+					</div>`;
+
+					container.appendChild(containerTempo);
+
+					// console.log(containerFeed);
+
+				});
 
 		});
 
-		container.innerHTML = bigString;
+
+
+		}
+
+		if(!Array.isArray(Grupolista[0])){
+
+			console.log('não é array');
+
+			let containerTempo = document.createElement('div');
+			containerTempo.classList.add('grupo-periodo');
+
+			let titulo = document.createElement('h2');
+
+			console.log(Grupolista);
+
+			titulo.textContent = `${DateHelper.queryDate(new Date(Grupolista[0].horaEntrada))}`;
+
+			let containerFeed = document.createElement('div');
+			containerFeed.classList.add('grupo-periodo-inner');
+
+			containerTempo.appendChild(titulo);
+			containerTempo.appendChild(containerFeed);
+
+			Grupolista.forEach(function(item){
+
+
+				if(typeof item.tempo == 'object'){
+					var hourParsed = item.tempo.hour.toString().length == 1 ? `0${item.tempo.hour}` : item.tempo.hour;
+					var minParsed = item.tempo.min.toString().length == 1 ? `0${item.tempo.min}` : item.tempo.min;
+				}
+
+
+				containerFeed.innerHTML += `<div class="task-single">
+
+					<div class="perfil-imagem">
+						${item.executor == 'Calebe' ? '<img src="imagens/profile-1.jpeg">' : ''}
+						${item.executor == 'Allan' ? '<img src="imagens/profile-2.jpeg">' : ''}
+						${item.executor == 'Álvaro' ? '<img src="imagens/profile-3.jpeg">' : ''}
+					</div>
+				
+					<section class="conteudo-master">
+
+						<div class="texto">
+							<span><strong>${item.executor}</strong> começou uma nova tarefa:</span>
+						</div>
+
+						<div class="task-conteudo">
+							<div class="nome-task">
+								<strong class="num-job">${item.numJob}</strong>
+								<span class="nome-job">${item.nome}</span>
+							</div>
+
+							<div class="info-task">
+
+								<div class="analista-info">
+									<strong class="analista">Analista: </strong>
+									<span class="nome-analista">${item.analista}</span>
+								</div>
+
+								<div class="hora-info">
+									<div class="hora-entrada-container">
+										<strong class="hora-entrada">Hora Entrada: </strong><br>
+										<span class="hora-entrada-info">${item.horaEntrada}</span><br>
+									</div>
+							
+									<div class="hora-saida-container">
+										<strong class="hora-saida">Hora Saída: </strong>
+
+										<div class="botao-saida-container">
+												${logado == item.executor && !item.horaSaida ? `<button onclick="Controller.ModalFinalizarTarefa(${item.id}, '${item.horaEntrada}')" class="hora-saida-button">Finalizar Tarefa</button>` : ''}
+												${logado != item.executor && !item.horaSaida ? '<span>Executando</span>' : ''}
+												${item.horaSaida ? `<span>${item.horaSaida}</span>` : ''}
+										</div>
+										
+									</div>
+
+									<div class="hora-entrada-container">
+										<strong class="hora-entrada">Tempo: </strong><br>
+										<span class="hora-entrada-info">${typeof item.tempo == 'string' ? item.tempo.substr(0, 5) : 
+											`<span class="container--change"><span class="horas--change">${hourParsed}</span>:<span class="minutos--change">${minParsed}</span></span>
+											`}</span><br>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>`;
+
+				container.appendChild(containerTempo);
+
+				// console.log(containerFeed);
+
+				});
+		}
+
+		
+
+		
+
+		// container.innerHTML = bigString;
 
 	}
 
@@ -160,7 +304,10 @@ class View{
 
 
 
-	enableFinalizaTarefa(container, id){
+	enableFinalizaTarefa(container, id, horaEntrada){
+
+		var hora = (new Date(horaEntrada));
+
 		var data = new Date();
 		var string = data.getMinutes().toString();
 		if(string.length == 1) string = '0' + string;
@@ -169,8 +316,9 @@ class View{
 				<h3>Finalizar Tarefa</h3>
 				<form action="http://localhost:3000/tarefas">
 					<div class="form-item horario-form">
+						<input name="horaEntrada" type="text" value='${hora}' style="display:none;" />
 						<label for="hora-entrada">Horário Saída</label><br>
-						<select name="horaEntrada" id="hora-entrada">
+						<select name="horaSaida" id="hora-entrada">
 							<option value="${data.getHours()}" selected>${data.getHours()}</option>
 							<option value="1">01</option>
 							<option value="2">02</option>
@@ -198,7 +346,7 @@ class View{
 							<option value="24">24</option>
 						</select>
 
-						<select name="minutosEntrada">
+						<select name="minutosSaida">
 							<option value="" disabled>Minutos</option>
 							<option value="${data.getMinutes()}" selected>${string}</option>
 							<option value="00">00</option>
@@ -277,7 +425,7 @@ class View{
 					</div>
 
 					<div class="form-item">
-						<input class="submit-form" type="submit" value="Filtrar" onclick="Controller.filtrarTarefas(event ${param ? ",'perfil'" : ''})">
+						<input class="submit-form" type="submit" value="Filtrar" onclick="Controller.filtrarTarefas(event${param ? ",'perfil'" : ''})">
 					</div>
 				</form>
 			</div>`;

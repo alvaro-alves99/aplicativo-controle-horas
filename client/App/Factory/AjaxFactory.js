@@ -10,7 +10,6 @@ class Ajax{
 				if(request.readyState == 4){
 					if(request.status == 200){
 						resolve(JSON.parse(request.responseText));
-						console.log(JSON.parse(request.responseText))
 					}else{
 						reject(console.log(request.statusText));
 					}

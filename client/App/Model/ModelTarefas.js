@@ -15,8 +15,8 @@ class ModelTarefas{
 		
 	}
 
-	_esvazia(){
-		this.tarefas = [];
+	esvazia(){
+		this.tarefas.length = 0;
 	}
 
 	_alteraTarefa(id, campo, valor){

@@ -7,17 +7,14 @@ class View{
 	atualiza(Grupolista, container, logado){
 		let bigString = '';
 
-		// console.log(Grupolista);
+		console.log(Grupolista);
 
 		if(Grupolista.length == 0){
 			container.innerHTML = '';
 			return;
 		}
 
-		console.log(Grupolista);
-
 		if(Array.isArray(Grupolista[0])){
-			console.log('é array');
 
 			Grupolista.forEach( lista => {
 
@@ -25,6 +22,7 @@ class View{
 				containerTempo.classList.add('grupo-periodo');
 
 				let titulo = document.createElement('h2');
+				titulo.classList.add('titulo-periodo');
 
 				titulo.textContent = `${DateHelper.queryDate(new Date(lista[0].horaEntrada))}`;
 
@@ -43,65 +41,48 @@ class View{
 						var minParsed = item.tempo.min.toString().length == 1 ? `0${item.tempo.min}` : item.tempo.min;
 					}
 
-					console.log(item.horaEntrada.split(' ')[1].substr(0, 5));
-
 
 					containerFeed.innerHTML += `<div class="task-single">
 
-						<div class="perfil-imagem">
-							${item.executor == 'Calebe' ? '<img src="imagens/profile-1.jpeg">' : ''}
-							${item.executor == 'Allan' ? '<img src="imagens/profile-2.jpeg">' : ''}
-							${item.executor == 'Álvaro' ? '<img src="imagens/profile-3.jpeg">' : ''}
+					<div class="first_division">
+						<div class="first__inner">
+							<span class="job-line">Job:&nbsp;&nbsp;<strong>${item.nome}</strong></span><br>
+
+							<span class="analista-line">Analista:&nbsp;&nbsp;<strong>${item.analista}</strong></span>
 						</div>
-					
-						<section class="conteudo-master">
+						<div class="tempo__inner">
+							<span>Tempo</span>
+							<span>${typeof item.tempo == 'string' ? item.tempo.substr(0, 5) : item.tempo }</span>
+						</div>
+					</div>
+				
+					<div class="second_division">
+						<div class="second__inner">
+							<span class="entrada_second">Entrada:&nbsp;&nbsp;<strong class="hour_second"> ${item.horaEntrada.split(' ')[1].substr(0, 5)}</strong></span>
 
-							<div class="texto">
-								<span><strong>${item.executor}</strong> começou uma nova tarefa:</span>
+							<span class="saida_second">Saída: <strong class="hour_saida">
+							${typeof item.horaSaida == 'string' ? item.horaSaida.split(' ')[1].substr(0, 5) : item.horaSaida}
+							</strong></span> 
+						</div>
+					</div>
+
+					<div class="third-division">
+						<div class="info_third">
+							${item.executor == 'Calebe' ? '<img class="profile-img" src="imagens/profile-1.jpeg">' : ''}
+							${item.executor == 'Allan' ? '<img class="profile-img" src="imagens/profile-2.jpeg">' : ''}
+							${item.executor == 'Álvaro' ? '<img class="profile-img" src="imagens/profile-3.jpeg">' : ''}
+							<span class="name_third">${item.executor}</span>
+						</div>
+
+						<div class="button_pause__third">
+							<div class="button_pause_inner">
+								<img src="imagens/pause.png" alt="">
+								<span>Em Andamento</span>
 							</div>
+						</div>
 
-							<div class="task-conteudo">
-								<div class="nome-task">
-									<strong class="num-job">${item.numJob}</strong>
-									<span class="nome-job">${item.nome}</span>
-								</div>
-
-								<div class="info-task">
-
-									<div class="analista-info">
-										<strong class="analista">Analista: </strong>
-										<span class="nome-analista">${item.analista}</span>
-									</div>
-
-									<div class="hora-info">
-										<div class="hora-entrada-container">
-											<strong class="hora-entrada">Hora Entrada: </strong><br>
-											<span class="hora-entrada-info">${item.horaEntrada.split(' ')[1].substr(0, 5)}</span><br>
-										</div>
-								
-										<div class="hora-saida-container">
-											<strong class="hora-saida">Hora Saída: </strong>
-
-											<div class="botao-saida-container">
-													${logado == item.executor && !item.horaSaida ? `<button onclick="Controller.ModalFinalizarTarefa(${item.id}, '${item.horaEntrada}')" class="hora-saida-button">Finalizar Tarefa</button>` : ''}
-													${logado != item.executor && !item.horaSaida ? '<span>Executando</span>' : ''}
-													${item.horaSaida ? `<span>${item.horaSaida.split(' ')[1].substr(0, 5)}</span>` : ''}
-											</div>
-											
-										</div>
-
-										<div class="hora-entrada-container">
-											<strong class="hora-entrada">Tempo: </strong><br>
-											<span class="hora-entrada-info">${typeof item.tempo == 'string' ? item.tempo.substr(0, 5) : 
-												`<span class="container--change"><span class="horas--change">${hourParsed}</span>:<span class="minutos--change">${minParsed}</span></span>
-												`}</span><br>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</section>
-					</div>`;
+					</div>
+				</div>`;
 
 					container.appendChild(containerTempo);
 
@@ -116,8 +97,6 @@ class View{
 		}
 
 		if(!Array.isArray(Grupolista[0])){
-
-			console.log('não é array');
 
 			let containerTempo = document.createElement('div');
 			containerTempo.classList.add('grupo-periodo');
@@ -388,6 +367,19 @@ class View{
 		container.style.opacity="1";
 	}
 
+	loading(){
+		let conteudo = `<div class="modal__adicionar" style="opacity:1;">
+				<span class="close-modal" onclick="Controller.ModalAdicionaToggle('dismiss')">X</span>
+				<i class="fa fa-check" aria-hidden="true"></i>
+				<input class="submit-form btn-alert-modal" type="submit" value="Finalizar" onclick="Controller.ModalAdicionaToggle('dismiss');">
+			</div>`;
+
+
+		let container = document.querySelector('.alert__mcontainer');
+		container.innerHTML = conteudo;
+		container.style.opacity="1";
+	}
+
 	enableModalFiltrar(param=false, logado){
 		let conteudo = `<div class="form__adicionar" style="opacity:1;">
 				<span class="close-modal" onclick="Controller.ModalAdicionaToggle('dismiss')">X</span>
@@ -433,5 +425,52 @@ class View{
 		let container = document.querySelector('.alert__mcontainer');
 		container.innerHTML = conteudo;
 		container.style.opacity="1";
+	}
+
+	tabelasExport(dados, container){
+		let bigString = ``;
+		console.log(dados);
+		console.log(container);
+
+		let containerTable = document.createElement('div');
+		containerTable.innerHTML = `
+				<table>
+					<thead style="color:red;">
+						<tr>
+							<td>Num Job</td>
+							<td>Nome</td>
+							<td>Cliente</td>
+							<td>Hora entrada</td>
+							<td>Hora saída</td>
+							<td>Tempo</td>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+
+				</table>
+	
+			`;
+
+		dados.forEach(item => {
+			let string = `
+				<tr>
+					<td>${item.numJob}</td>
+					<td>${item.nome}</td>
+					<td>${item.analista}</td>
+					<td>${item.horaEntrada}</td>
+					<td>${item.horaSaida}</td>
+					<td>${item.tempo}</td>
+				</tr>
+			`
+
+
+			containerTable.childNodes[1].childNodes[3].innerHTML += string;
+
+		});
+
+		container.appendChild(containerTable);
+
 	}
 }

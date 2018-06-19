@@ -4,39 +4,38 @@
 	<meta charset="UTF-8">
 	<title>Aplicativo Controle Horas</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://fonts.googleapis.com/css?family=Raleway:200,400,700,900" rel="stylesheet">
 	<link rel="stylesheet" href="CSS/master.css">
 	<link rel="stylesheet" href="CSS/modal-adicionar.css">
+	<link rel="stylesheet" href="CSS/perfil.css">
 </head>
 <body>
 	<div class="mcontainer">
 
 		<nav class="title__mcontainer">
-			<a href="#" class="filtro__title active__title">Feed</a>
-			<a href="exportar.html" class="filtro__title">Exportar</a>
+			<a href="index.html" class="filtro__title">Feed</a>
+			<a href="exportar.html" class="filtro__title active__title">Exportar</a>
 			<a href="perfil.html" class="filtro__title">Perfil</a>
 		</nav>
 
-		<section class="filtro__mcontainer">
-			<select class="executor__filtro" name="filtro-executor">
-				<option value="" selected disabled>Filtrar por executor</option>
-				<option value="">Geral</option>
-				<option value="Allan">Allan</option>
-				<option value="Álvaro">Álvaro</option>
-				<option value="Vitor">Vitor</option>
-				<option value="Calebe">Calebe</option>
-			</select>
 
-			<img onclick="Controller.ModalAdicionaToggle()" class="add-task-btn" src="imagens/plus.png" alt="">
+		<section class="perfil__mcontainer">
+			<div class="table__export"></div>
+			<div class="info__perfil">
+				<h2 class="nome__info">Exportar para: </h2>
+				<input type="email" placeholder="exemplo@gmail.com" name="email_export">
+				
+
+				<div class="botaotarefas__info">
+					<a href="#" onclick="Controller.enableTableExport(event, '.table__export')">exportar</button>
+				</div>
+			</div>
 		</section>
-
-		<section class="feed__mcontainer"></section>
 
 		<!-- <div class="botaoadiciona__mcontainer">
 			<button style="text-transform:uppercase;" onclick="Controller.ModalAdicionaToggle()"> Adicionar Tarefa +</button>
 		</div> -->
 
-		<section class="adicionar__mcontainer alert__mcontainer" style="display:block !important;opacity:1;"></section>
+		<section class="adicionar__mcontainer"></section>
 
 	</div>
 
@@ -49,7 +48,6 @@
 	<script>
 		var $ = document.querySelector.bind(document);
 		const Controller = new ControllerApp();
-		Controller.carregaTarefas();
 	</script>
 </body>
 </html>

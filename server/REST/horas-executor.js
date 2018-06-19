@@ -25,10 +25,13 @@ module.exports = function(app){
 					}
 				});
 
+
+				console.log('PERIODO FILTRO');
 				console.log(periodoFiltro);
 			
 				res.end(JSON.stringify(calculaData(periodoFiltro)));	
 			}
+
 
 			res.end(JSON.stringify(calculaData(results)));
 

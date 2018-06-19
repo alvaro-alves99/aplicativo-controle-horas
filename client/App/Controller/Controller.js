@@ -5,7 +5,7 @@ class ControllerApp{
 		let self = this;
 		this.view = new View();
 		this.feedContainer = document.querySelector('.feed__mcontainer');
-		this.logado = 'Calebe';
+		this.logado = 'Allan';
 		this.model = ProxyFactory.Model(self, this.logado);
 	}
 
@@ -111,7 +111,10 @@ class ControllerApp{
 
 		Ajax.get(`http://localhost:3000/horas-executor?executor=${this.logado}&periodo=${event.target.value}`)
 			.then( dados => {
-				console.log(dados==false)
+
+				console.log(dados);
+
+				console.log(event.target.value);
 
 				if(dados.hora == 0 && dados.minutos == 0){
 					$('.hora__info').style.color='red';
@@ -134,13 +137,11 @@ class ControllerApp{
 
 		Ajax.send('POST', 'http://localhost:3000/tarefas', json)
 			.then(dados => {
-				// TAREFA ADICIONADA COM SUCESSO
 
-				console.log(DateHelper.tempoAtual(json));
-				this.model._adicionaTarefa(DateHelper.tempoAtual(json));
-				this.view.alert('Sucesso!', 'Sua tarefa foi adicionada');
+				this.view.alert('Carregando', 'aguarde sua tarefa ser adicionada');
 
 				setTimeout(() => {
+					this.view.alert('Sucesso!', 'Sua tarefa foi adicionada.');
 					this.carregaTarefas();
 				}, 600);
 			});
@@ -185,13 +186,9 @@ class ControllerApp{
 
 	AgrupaPorData(array){
 
-		console.log(array);
-
 		array.forEach(item => {
 			item.data = item.horaEntrada.split(' ')[0];
 		});
-
-		console.log(array);
 
 		let superDatas = [[]];
 
@@ -208,5 +205,17 @@ class ControllerApp{
 
 		return superDatas;
 
+	}
+
+	enableTableExport(event, container){
+
+		event.preventDefault();
+
+		Ajax.get(`http://localhost:3000/tarefas?executor=${this.logado}`)
+			.then(item => {
+					let dados = item.filter(n => n.tempo != null);
+
+				this.view.tabelasExport(dados, document.querySelector(container));
+			});
 	}
 }

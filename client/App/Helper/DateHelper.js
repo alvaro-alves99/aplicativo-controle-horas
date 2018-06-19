@@ -48,8 +48,6 @@ class DateHelper{
 			container.forEach(item =>{
 				let valorMin = ++item.childNodes[2].textContent;
 
-				console.log(item.childNodes[2].textContent.length);
-
 				if(item.childNodes[2].textContent.length == 1){
 					item.childNodes[2].textContent = "0" + valorMin;
 				}
@@ -89,7 +87,6 @@ class DateHelper{
 
 			var queryTarefa = `${hora}:${objetoTarefa.minutos}:0`
 
-			console.log(queryTarefa);
 		}
 
 	static diaSemana(data){
@@ -148,7 +145,8 @@ class DateHelper{
 
 	static queryDate(data){
 		if(data.setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0)){
-			return `Hoje, ${data.getDate()} de ${this.nomeMes(data)} de ${data.getFullYear()}`;
+			return 'Hoje'
+			// return `Hoje, ${data.getDate()} de ${this.nomeMes(data)} de ${data.getFullYear()}`;
 		}else{
 			return `${this.diaSemana(data)}, ${data.getDate()} de ${this.nomeMes(data)} de ${data.getFullYear()}`;
 		}

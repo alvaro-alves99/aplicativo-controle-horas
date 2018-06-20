@@ -52,7 +52,11 @@ class View{
 						</div>
 						<div class="tempo__inner">
 							<span>Tempo</span>
-							<span>${typeof item.tempo == 'string' ? item.tempo.substr(0, 5) : item.tempo }</span>
+							<span>
+								${typeof item.tempo == 'string' ? item.tempo.substr(0, 5) : `
+									<span class="container--change"><span class="valor-hour">${item.tempo.hour}</span>:<span class="valor-min">${item.tempo.min}</span></span>									
+								`}
+							</span>
 						</div>
 					</div>
 				
@@ -199,23 +203,25 @@ class View{
 		var string = data.getMinutes().toString();
 		if(string.length == 1) string = '0' + string;
 		let conteudoModal = `<div class="form__adicionar" style="opacity:1;">
-				<span class="close-modal" onclick="Controller.ModalAdicionaToggle('dismiss')">X</span>
-				<h3>Adicionar Tarefa</h3>
+				<div class="top__form">
+					<span class="close-modal" onclick="Controller.ModalAdicionaToggle('dismiss')">X</span>
+					<h3>Cadastrar uma nova tarefa</h3>
+				</div>
 				<form action="http://localhost:3000/tarefas" method="post">
 					<div class="form-item">
-						<label for="nome-tarefa">Nome tarefa</label>
-						<input id="nome-tarefa" name="nome" type="text">
+						<label for="nome-tarefa">Nome Job</label>
+						<input id="nome-tarefa" name="nome" type="text" placeholder="Escreva o nome do Job">
 					</div>
 
 					<div class="form-item">
 						<label for="numero-tarefa">Número Job</label>
-						<input id="numero-tarefa" name="numJob" type="number">
+						<input id="numero-tarefa" name="numJob" type="number" placeholder="Escreva o número do Job">
 					</div>
 
 					<div class="form-item horario-form">
-						<label for="hora-entrada-tarefa">Horário Entrada</label><br>
+						<label for="hora-entrada-tarefa">Horário Entrada</label>
 						<select name="horaEntrada" id="hora-entrada">
-							<option value="${data.getHours()}" selected>${data.getHours()}</option>
+							<option value="${data.getHours()}" selected>${data.getHours()}h</option>
 							<option value="1">01</option>
 							<option value="2">02</option>
 							<option value="3">03</option>
@@ -244,7 +250,7 @@ class View{
 
 						<select name="minutosEntrada">
 							<option value="" disabled>Minutos</option>
-							<option value="${data.getMinutes()}" selected>${string}</option>
+							<option value="${data.getMinutes()}" selected>${string}min</option>
 							<option value="00">00</option>
 							<option value="05">05</option>
 							<option value="10">10</option>
@@ -263,7 +269,7 @@ class View{
 					<div class="form-item">
 						<label for="analista">Analista</label>
 						<select id="analista" name="analista">
-							<option value="" disabled selected>Selectione o analista</option>
+							<option value="" disabled selected>Escolha o analista</option>
 							<option value="Kim">Kim</option>
 							<option value="Andresa">Andresa</option>
 							<option value="Karine">Karine</option>
@@ -271,8 +277,8 @@ class View{
 						</select>
 					</div>
 
-					<div class="form-item">
-						<input class="submit-form" type="submit" value="Cadastrar" onclick="Controller.adicionarTarefa(event)">
+					<div class="form-item button-item">
+						<input class="submit-form" type="submit" value="Criar tarefa" onclick="Controller.adicionarTarefa(event)">
 					</div>
 				</form>
 			</div>`;
@@ -355,14 +361,17 @@ class View{
 
 	alert(titulo, subtitulo){
 		let conteudo = `<div class="modal__adicionar" style="opacity:1;">
-				<span class="close-modal" onclick="Controller.ModalAdicionaToggle('dismiss')">X</span>
-				<h3>${titulo}</h3>
-				<h4>${subtitulo}</h4>
-				<input class="submit-form btn-alert-modal" type="submit" value="Finalizar" onclick="Controller.ModalAdicionaToggle('dismiss');">
+				<div class="top__form top__alert">
+					<span class="close-modal" onclick="Controller.ModalAdicionaToggle('dismiss')">X</span>
+				</div>
+				<div class="meio__modal">
+					<img src="imagens/checked.png" alt="">
+					<h3>${titulo}</h3>
+				</div>
 			</div>`;
 
 
-		let container = document.querySelector('.alert__mcontainer');
+		let container = document.querySelector('.adicionar__mcontainer');
 		container.innerHTML = conteudo;
 		container.style.opacity="1";
 	}

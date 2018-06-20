@@ -5,7 +5,7 @@ class ControllerApp{
 		let self = this;
 		this.view = new View();
 		this.feedContainer = document.querySelector('.feed__mcontainer');
-		this.logado = 'Allan';
+		this.logado = 'Álvaro';
 		this.model = ProxyFactory.Model(self, this.logado);
 	}
 
@@ -48,7 +48,7 @@ class ControllerApp{
 					this.ModalAdicionaToggle('dismiss');
 					DateHelper.incrementHour();
 				}else{
-					this.view.alert('Erro', 'Não foram encontradas tarefas para esse período');
+					this.view.alert('Não foram encontradas tarefas para esse período');
 				}
 
 			}).catch( (erro) => console.log(erro));
@@ -89,7 +89,7 @@ class ControllerApp{
 						this.carregaTarefas();
 					}, 600)
 					//TELA DE CARREGAMENTO
-					this.view.alert('Sucesso!', 'Sua tarefa foi finalizada');
+					this.view.alert('Sua tarefa foi finalizada');
 					
 			}).catch(erro => console.log(erro));
 	}
@@ -138,10 +138,8 @@ class ControllerApp{
 		Ajax.send('POST', 'http://localhost:3000/tarefas', json)
 			.then(dados => {
 
-				this.view.alert('Carregando', 'aguarde sua tarefa ser adicionada');
-
 				setTimeout(() => {
-					this.view.alert('Sucesso!', 'Sua tarefa foi adicionada.');
+					this.view.alert('Sua tarefa foi adicionada com sucesso');
 					this.carregaTarefas();
 				}, 600);
 			});
@@ -173,7 +171,7 @@ class ControllerApp{
 				console.log(dados);
 
 				if(dados.hora == 0 && dados.minutos == 0){
-					this.view.alert('Erro', 'Não foram encontradas tarefas para esse período');
+					this.view.alert('Não foram encontradas tarefas para esse período');
 				}else{
 					$('.horas-valor').textContent = dados.hora;
 				}
